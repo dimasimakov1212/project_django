@@ -12,13 +12,18 @@ def contact(request):
         message = request.POST.get('message')
         print(f'Имя - {name}, почта - {email}, сообщение - {message}')
 
-    return render(request, 'main/contact.html')
+    context = {
+        'title': 'Контакты'
+    }
+
+    return render(request, 'main/contact.html', context)
 
 
 def index_2(request):
     stud_list = Student.objects.all()
     context = {
-        'object_list': stud_list
+        'object_list': stud_list,
+        'title': 'Главная'
     }
     for student in stud_list:
         print(student)
