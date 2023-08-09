@@ -2,15 +2,13 @@
 
 {% block content %}
 
-{% for object in object_list %}
 <div class="col">
     <div class="card shadow-sm">
         <div class="card-body">
-            <p class="card-text">{{ object }}</p>
+            <p class="card-text">{{ student_info }}</p>
             <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                    <a type="button" class="btn btn-sm btn-outline-secondary"
-                            href="{% url 'main:view_student' pk=object.id %}">View</a>
+                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
                     <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
                 </div>
                 <small class="text-body-secondary">9 mins</small>
@@ -18,6 +16,5 @@
         </div>
     </div>
 </div>
-{% endfor %}
 
 {% endblock %}

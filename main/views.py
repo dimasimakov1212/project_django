@@ -29,3 +29,14 @@ def index_2(request):
         print(student)
 
     return render(request, 'main/test_html.html', context)
+
+
+def view_student(request, pk):
+
+    student_info = Student.objects.get(pk=pk)  # получаем данные студента по его id
+    context = {
+        'student_info': student_info,
+        'title': 'Главная'
+    }
+
+    return render(request, 'main/view_student.html', context)
