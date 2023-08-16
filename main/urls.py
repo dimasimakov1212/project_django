@@ -1,7 +1,7 @@
 from django.urls import path, include
 
 from main.apps import MainConfig
-from main.views import contact, StudentListView, StudentDetailView
+from main.views import contact, StudentDetailView, StudentListView, StudentCreateView
 
 app_name = MainConfig.name
 
@@ -11,5 +11,5 @@ urlpatterns = [
     path('contact/', contact, name='contact'),
     # path('view_student/<int:pk>/', view_student, name='view_student'),
     path('view_student/<int:pk>/', StudentDetailView.as_view(), name='view_student'),
-
+    path('create/', StudentCreateView.as_view(), name='create_student'),
 ]

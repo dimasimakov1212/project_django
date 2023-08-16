@@ -2,6 +2,11 @@
 
 {% block content %}
 
+<div class="col-12">
+        <a class="btn btn-outline-primary" href="{% url 'main:create_student' %}">Создать студента</a>
+</div>
+
+
 {% for object in object_list %}
 <div class="col">
     <div class="card shadow-sm">
@@ -12,6 +17,7 @@
                     <a type="button" class="btn btn-sm btn-outline-secondary"
                             href="{% url 'main:view_student' pk=object.id %}">View</a>
                     <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary">Delete</button>
                 </div>
                 <small class="text-body-secondary">9 mins</small>
             </div>

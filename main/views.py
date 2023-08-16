@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView
 
 from main.models import Student
 
@@ -12,6 +13,13 @@ class StudentListView(ListView):
     model = Student
     template_name = 'main/test_html.html'
 
+    # def get_context_data(self, **kwargs):
+    #
+    #     context = super().get_context_data(**kwargs)
+    #     print(context)
+    #
+    #     return context
+
 
 class StudentDetailView(DetailView):
     """
@@ -20,6 +28,21 @@ class StudentDetailView(DetailView):
     model = Student
     template_name = 'main/view_student.html'
 
+    def get_context_data(self, **kwargs):
+
+        context = super().get_context_data(**kwargs)
+        print(context)
+
+        return context
+
+
+class StudentCreateView(CreateView):
+    """
+    Контроллер создания нового студента
+    """
+    model = Student
+    fields = ('first_name', 'last_name', 'avatar')
+    success_url = reverse_lazy('main:test_html')
 
 def contact(request):
     """
