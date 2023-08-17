@@ -11,7 +11,7 @@ class StudentListView(ListView):
     """
 
     model = Student
-    template_name = 'main/test_html.html'
+    # template_name = 'main/student_list.html'
 
     # def get_context_data(self, **kwargs):
     #
@@ -26,7 +26,7 @@ class StudentDetailView(DetailView):
     Выводит информаццию об одном, выбранном на главной странице, студенте вместо функции view_student
     """
     model = Student
-    template_name = 'main/view_student.html'
+    # template_name = 'main/student_detail.html'
 
     def get_context_data(self, **kwargs):
 
@@ -43,6 +43,7 @@ class StudentCreateView(CreateView):
     model = Student
     fields = ('first_name', 'last_name', 'avatar')
     success_url = reverse_lazy('main:test_html')
+
 
 def contact(request):
     """
@@ -76,7 +77,7 @@ def contact(request):
 #     for student in stud_list:
 #         print(student)
 #
-#     return render(request, 'main/test_html.html', context)
+#     return render(request, 'main/student_list.html', context)
 
 
 # def view_student(request, pk):
@@ -90,4 +91,4 @@ def contact(request):
 #         'title': 'Данные студента'
 #     }
 #
-#     return render(request, 'main/view_student.html', context)
+#     return render(request, 'main/student_detail.html', context)
