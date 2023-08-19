@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from django.urls import reverse_lazy
+from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, CreateView
 
 from main.models import Student
@@ -64,6 +64,20 @@ def contact(request):
 
     return render(request, 'main/contact.html', context)
 
+
+def toggle_activity(request, pk):
+    """
+    Меняет статус студента (учится или нет)
+    """
+    student_item = get_object_or_404(Student, pk=pk)
+    if student_item.is_active:
+        student_item.is_active = False
+    else:
+        student_item.is_active = True
+
+    student_item.save()
+
+    return redirect(reverse('main:test_html'))
 
 # def index_2(request):
 #     """

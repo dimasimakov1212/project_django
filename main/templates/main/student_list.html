@@ -26,7 +26,11 @@
                         <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
                         <button type="button" class="btn btn-sm btn-outline-danger">Delete</button>
                     </div>
-                    <small class="text-body-secondary">9 mins</small>
+                    {% if object.is_active %}
+                        <a class="btn btn-warning" href="{% url 'main:toggle_activity' pk=object.id %}">Деактивировать</a>
+                    {% else %}
+                        <a class="btn btn-success" href="{% url 'main:toggle_activity' pk=object.id %}">Активировать</a>
+                    {% endif %}
                 </div>
             </div>
         </div>
