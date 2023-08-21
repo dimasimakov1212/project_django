@@ -23,7 +23,8 @@
                     <div class="btn-group">
                         <a type="button" class="btn btn-sm btn-outline-secondary"
                                 href="{% url 'main:view_student' pk=object.id %}">View</a>
-                        <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                        <a type="button" class="btn btn-sm btn-outline-secondary"
+                                href="{% url 'main:update_student' pk=object.id %}">Edit</a>
                         <button type="button" class="btn btn-sm btn-outline-danger">Delete</button>
                     </div>
                     {% if object.is_active %}

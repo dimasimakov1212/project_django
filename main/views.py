@@ -1,7 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy, reverse
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 
+from main.forms import StudentForm
 from main.models import Student
 
 
@@ -41,7 +42,17 @@ class StudentCreateView(CreateView):
     Контроллер создания нового студента
     """
     model = Student
-    fields = ('first_name', 'last_name', 'avatar')
+    # fields = ('first_name', 'last_name', 'avatar')  # если определен форм-класс, то поле не используется
+    form_class = StudentForm
+    success_url = reverse_lazy('main:test_html')
+
+
+class StudentUpdateView(UpdateView):
+    """
+    Контроллер редактирования студента
+    """
+    model = Student
+    form_class = StudentForm
     success_url = reverse_lazy('main:test_html')
 
 
