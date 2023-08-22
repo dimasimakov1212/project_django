@@ -19,3 +19,20 @@ class Student(models.Model):
         verbose_name = 'студент'  # Настройка для наименования одного объекта
         verbose_name_plural = 'студенты'  # Настройка для наименования набора объектов
         ordering = ('last_name',)  # сортировка по фамилии
+
+
+class Subject(models.Model):
+    """
+    Модель выбора предметов для студента
+    """
+    subject_title = models.CharField(max_length=150, verbose_name='название')
+    subject_description = models.TextField(verbose_name='описание')
+
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, verbose_name='студент')
+
+    def __str__(self):
+        return f'{self.subject_title}'
+
+    class Meta:
+        verbose_name = 'предмет'
+        verbose_name_plural = 'предметы'
