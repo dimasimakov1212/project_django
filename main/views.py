@@ -46,6 +46,32 @@ class StudentCreateView(CreateView):
     form_class = StudentForm
     success_url = reverse_lazy('main:test_html')
 
+    def get_context_data(self, **kwargs):
+        """
+        Добавляем формы для внесения данных о предметах студента
+        """
+        context_data = super().get_context_data(**kwargs)
+        SubjectFormset = inlineformset_factory(Student, Subject, form=SubjectForm, extra=1)
+
+        if self.request.method == 'POST':
+            context_data['formset'] = SubjectFormset(self.request.POST, instance=self.object)
+        else:
+            context_data['formset'] = SubjectFormset(instance=self.object)
+
+        return context_data
+
+    def form_valid(self, form):
+        """
+        Проверяем данные на правильность заполнения
+        """
+        formset = self.get_context_data()['formset']
+        self.object = form.save()
+        if formset.is_valid():
+            formset.instance = self.object
+            formset.save()
+
+        return super().form_valid(form)
+
 
 class StudentUpdateView(UpdateView):
     """
