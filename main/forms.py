@@ -15,8 +15,8 @@ class StudentForm(forms.ModelForm):
         model = Student
 
         # используется какой-то один параметр
-        # fields = '__all__'  # выводит в форму все поля
-        fields = ('first_name', 'last_name', 'email')  # выводит в форму указанные поля
+        fields = '__all__'  # выводит в форму все поля
+        # fields = ('first_name', 'last_name', 'email')  # выводит в форму указанные поля
         # exclude = ('is_active',)  # выводит в форму все поля, кроме указанного
 
     def __init__(self, *args, **kwargs):

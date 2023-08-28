@@ -2,6 +2,7 @@ from django.db import models
 
 
 NULLABLE = {'blank': True, 'null': True}
+CHOICES_STUDENT = ((True, 'учится'), (False, 'не учится'))
 
 
 class Student(models.Model):
@@ -11,7 +12,7 @@ class Student(models.Model):
 
     email = models.CharField(max_length=150, verbose_name='email', unique=True, **NULLABLE)
 
-    is_active = models.BooleanField(default=True, verbose_name='учится')
+    is_active = models.BooleanField(choices=CHOICES_STUDENT, verbose_name='учится')
 
     def __str__(self):
         # Строковое отображение объекта
