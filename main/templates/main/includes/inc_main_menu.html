@@ -4,6 +4,13 @@
         <li><a href="{% url 'main:test_html' %}" class="text-black">Главная</a></li>
         <li><a href="{% url 'materials:list' %}" class="text-black">Материалы</a></li>
         <li><a href="{% url 'main:contact' %}" class="text-black">Контакты</a></li>
+        {% if user.is_authenticated %}
+        <li><a href="{% url 'users:profile' %}" class="text-black">Профиль</a></li>
+        <li><a href="{% url 'users:logout' %}" class="text-black">Выйти</a></li>
+        {% else %}
+        <li><a href="{% url 'users:login' %}" class="text-black">Войти</a></li>
+        <li><a href="{% url 'users:register' %}" class="text-black">Регистрация</a></li>
+        {% endif %}
         <li><a href="#" class="text-black">Email me</a></li>
     </ul>
 </div>
