@@ -24,7 +24,6 @@ class ProfileView(UpdateView):
     """
     model = User
     form_class = UserProfileForm
-    # template_name = 'users/register.html'
     success_url = reverse_lazy('users:profile')
 
     def get_object(self, queryset=None):
@@ -33,9 +32,3 @@ class ProfileView(UpdateView):
         """
         return self.request.user
 
-    # def __init__(self, *args, **kwargs):
-    #     """
-    #     Позволяет не выводить в профиле поле пароля
-    #     """
-    #     super().__init__(*args, **kwargs)
-    #     self.fields['password'].widget = forms.HiddenInput()

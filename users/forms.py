@@ -1,6 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
 from users.models import User
+from django import forms
 
 
 class UserRegisterForm(UserCreationForm):
@@ -19,3 +20,10 @@ class UserProfileForm(UserChangeForm):
     class Meta:
         model = User
         fields = ('email', 'first_name', 'last_name', 'phone', 'avatar')
+
+    def __init__(self, *args, **kwargs):
+        """
+        Позволяет не выводить в профиле поле пароля
+        """
+        super().__init__(*args, **kwargs)
+        self.fields['password'].widget = forms.HiddenInput()
