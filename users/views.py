@@ -3,6 +3,7 @@ from django.views.generic import CreateView, UpdateView
 from django.urls import reverse_lazy
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from users.forms import UserRegisterForm, UserProfileForm
 from users.models import User
@@ -10,7 +11,7 @@ from users.models import User
 
 class RegisterView(CreateView):
     """
-
+    Контроллер формы регистрации пользователя
     """
     model = User
     form_class = UserRegisterForm
@@ -18,9 +19,9 @@ class RegisterView(CreateView):
     success_url = reverse_lazy('users:login')
 
 
-class ProfileView(UpdateView):
+class ProfileView(LoginRequiredMixin, UpdateView):
     """
-
+    Контроллер формы профиля пользователя
     """
     model = User
     form_class = UserProfileForm

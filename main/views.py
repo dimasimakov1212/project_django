@@ -1,13 +1,16 @@
 from django.forms import inlineformset_factory
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy, reverse
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from main.forms import StudentForm, SubjectForm
 from main.models import Student, Subject
 
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 
-class StudentListView(ListView):
+
+class StudentListView(LoginRequiredMixin, ListView):
     """
     Выводит информаццию о всех студентах на главную страницу вместо функции index_2
     """
@@ -37,7 +40,7 @@ class StudentDetailView(DetailView):
         return context
 
 
-class StudentCreateView(CreateView):
+class StudentCreateView(LoginRequiredMixin, CreateView):
     """
     Контроллер создания нового студента
     """
@@ -73,7 +76,7 @@ class StudentCreateView(CreateView):
         return super().form_valid(form)
 
 
-class StudentUpdateView(UpdateView):
+class StudentUpdateView(LoginRequiredMixin, UpdateView):
     """
     Контроллер редактирования студента
     """
@@ -102,6 +105,15 @@ class StudentUpdateView(UpdateView):
         return super().form_valid(form)
 
 
+class StudentDeleteView(LoginRequiredMixin, DeleteView):
+    """
+    Выводит форму удаления материала
+    """
+    model = Student
+    success_url = reverse_lazy('main:test_html')
+
+
+@login_required
 def contact(request):
     """
     Выводит страницу с контактами и получает обратную связь

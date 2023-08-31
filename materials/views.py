@@ -2,11 +2,12 @@ from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView
 from pytils.translit import slugify
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from materials.models import Material
 
 
-class MaterialCreateView(CreateView):
+class MaterialCreateView(LoginRequiredMixin, CreateView):
     """
     Выводит форму создания мариала
     """
@@ -26,7 +27,7 @@ class MaterialCreateView(CreateView):
         return super().form_valid(form)
 
 
-class MaterialListView(ListView):
+class MaterialListView(LoginRequiredMixin, ListView):
     """
     Выводит информацию о материалах
     """
@@ -42,7 +43,7 @@ class MaterialListView(ListView):
         return queryset
 
 
-class MaterialDetailView(DetailView):
+class MaterialDetailView(LoginRequiredMixin, DetailView):
     """
     Выводит информаццию об одном, выбранном на главной странице, материале
     """
@@ -60,7 +61,7 @@ class MaterialDetailView(DetailView):
         return self.object
 
 
-class MaterialUpdateView(UpdateView):
+class MaterialUpdateView(LoginRequiredMixin, UpdateView):
     """
     Выводит форму редактирования материала
     """
@@ -86,7 +87,7 @@ class MaterialUpdateView(UpdateView):
         return reverse('materials:view', args=[self.kwargs.get('pk')])
 
 
-class MaterialDeleteView(DeleteView):
+class MaterialDeleteView(LoginRequiredMixin, DeleteView):
     """
     Выводит форму удаления материала
     """

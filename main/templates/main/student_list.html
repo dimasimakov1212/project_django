@@ -25,7 +25,8 @@
                                 href="{% url 'main:view_student' pk=object.id %}">View</a>
                         <a type="button" class="btn btn-sm btn-outline-secondary"
                                 href="{% url 'main:update_student' pk=object.id %}">Edit</a>
-                        <button type="button" class="btn btn-sm btn-outline-danger">Delete</button>
+                        <a type="button" class="btn btn-sm btn-outline-danger"
+                                href="{% url 'main:delete_student' pk=object.id %}">Delete</a>
                     </div>
                     {% if object.is_active %}
                         <a class="btn btn-warning" href="{% url 'main:toggle_activity' pk=object.id %}">Деактивировать</a>
