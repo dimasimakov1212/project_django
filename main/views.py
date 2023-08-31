@@ -6,16 +6,18 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from main.forms import StudentForm, SubjectForm
 from main.models import Student, Subject
 
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.decorators import login_required
 
 
-class StudentListView(LoginRequiredMixin, ListView):
+class StudentListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     """
     Выводит информаццию о всех студентах на главную страницу вместо функции index_2
     """
 
     model = Student
+    permission_required = 'main.view_student'  # проверка прав доступа
+
     # template_name = 'main/student_list.html'
 
     # def get_context_data(self, **kwargs):
@@ -26,12 +28,14 @@ class StudentListView(LoginRequiredMixin, ListView):
     #     return context
 
 
-class StudentDetailView(DetailView):
+class StudentDetailView(LoginRequiredMixin, DetailView):
     """
     Выводит информаццию об одном, выбранном на главной странице, студенте вместо функции view_student
     """
     model = Student
+
     # template_name = 'main/student_detail.html'
+
 
     def get_context_data(self, **kwargs):
 
@@ -40,13 +44,14 @@ class StudentDetailView(DetailView):
         return context
 
 
-class StudentCreateView(LoginRequiredMixin, CreateView):
+class StudentCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     """
     Контроллер создания нового студента
     """
     model = Student
     # fields = ('first_name', 'last_name', 'avatar')  # если определен форм-класс, то поле не используется
     form_class = StudentForm
+    permission_required = 'main.add_student'
     success_url = reverse_lazy('main:test_html')
 
     def get_context_data(self, **kwargs):
@@ -76,12 +81,13 @@ class StudentCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class StudentUpdateView(LoginRequiredMixin, UpdateView):
+class StudentUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     """
     Контроллер редактирования студента
     """
     model = Student
     form_class = StudentForm
+    permission_required = 'main.change_student'
     success_url = reverse_lazy('main:test_html')
 
     def get_context_data(self, **kwargs):
@@ -105,11 +111,12 @@ class StudentUpdateView(LoginRequiredMixin, UpdateView):
         return super().form_valid(form)
 
 
-class StudentDeleteView(LoginRequiredMixin, DeleteView):
+class StudentDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     """
     Выводит форму удаления материала
     """
     model = Student
+    permission_required = 'main.delete_student'
     success_url = reverse_lazy('main:test_html')
 
 
