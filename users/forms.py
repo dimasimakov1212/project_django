@@ -6,16 +6,26 @@ from django import forms
 
 class UserRegisterForm(UserCreationForm):
     """
-
+    Форма регистрации пользователя
     """
     class Meta:
         model = User
         fields = ('email', 'password1', 'password2')
 
+    def __init__(self, *args, **kwargs):
+        """
+        Дополнительные настройки
+        """
+        super().__init__(*args, **kwargs)
+
+        # передаем в шаблон контроль формы
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
+
 
 class UserProfileForm(UserChangeForm):
     """
-
+    Форма профиля юзера
     """
     class Meta:
         model = User
