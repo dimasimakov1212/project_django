@@ -11,6 +11,8 @@ from main.models import Student, Subject
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.decorators import login_required
 
+from main.services import get_cached_subjects_for_student
+
 
 class StudentListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     """
@@ -43,16 +45,17 @@ class StudentDetailView(LoginRequiredMixin, DetailView):
 
         # subject_list = self.object.subject_set.all()
 
-        if settings.CACHE_ENABLED:
-            key = f'subject_list_{self.object.pk}'  # ключ, по которому получаем список предметов
-            subject_list = cache.get(key)  # получаем все предметы студента
-            if subject_list is None:
-                subject_list = self.object.subject_set.all()
-                cache.set(key, subject_list)  # кэшируем список предметов
-        else:
-            subject_list = self.object.subject_set.all()
+        # функционал перенесен в файл services.py
+        # if settings.CACHE_ENABLED:
+        #     key = f'subject_list_{self.object.pk}'  # ключ, по которому получаем список предметов
+        #     subject_list = cache.get(key)  # получаем все предметы студента
+        #     if subject_list is None:
+        #         subject_list = self.object.subject_set.all()
+        #         cache.set(key, subject_list)  # кэшируем список предметов
+        # else:
+        #     subject_list = self.object.subject_set.all()
 
-        context['subjects'] = subject_list
+        context['subjects'] = get_cached_subjects_for_student(self.object.pk)
 
         return context
 
